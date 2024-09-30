@@ -1,5 +1,6 @@
 package com.ridhan.book.user;
 
+import com.ridhan.book.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,6 +13,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,24 +23,24 @@ import java.util.Collection;
 @Entity
 @Table(name="user")
 @EntityListeners((AuditingEntityListener.class))
-public class user implements UserDetails, Principal {
+public class User implements UserDetails, Principal {
     @Id
     @GeneratedValue
     private Integer id;
     private String firstname;
     private String lastname;
-    private LocalDate dateofBirth;
+    private LocalDate dateOfBirth;
     @Column(unique = true)
     private String email;
     private String password;
     private boolean accountLocked;
     private boolean enabled;
-
-//    private List<Role> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles;
 
 
     @CreatedDate
-    @Column(nullable = false updatable= false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
     @LastModifiedDate
     @Column(insertable = false)
