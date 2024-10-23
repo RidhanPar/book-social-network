@@ -1,12 +1,15 @@
 package com.ridhan.book.auth;
 
 import com.ridhan.book.email.EmailService;
+import com.ridhan.book.email.EmailTemplateName;
 import com.ridhan.book.role.RoleRepository;
 import com.ridhan.book.user.Token;
 import com.ridhan.book.user.TokenRepository;
 import com.ridhan.book.user.User;
 import com.ridhan.book.user.UserRepository;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +25,10 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
     private final EmailService emailService;
+    @Value("${application.mailing.frontend.activation-url}")
+    private String activationUrl;
 
-    public void register(RegistrationRequest request) {
+    public void register(RegistrationRequest request) throws MessagingException {
 
         var userRole = roleRepository.findByName("USER")
                 .orElseThrow(() -> new IllegalStateException("Role USER was not initialized"));
@@ -43,8 +48,17 @@ public class AuthenticationService {
 
     }
 
-    private void sendValidationEmail(User user) {
+    private void sendValidationEmail(User user) throws MessagingException {
         var newToken = generateAndSaveActivationToken(user);
+
+        emailService.sendEmail(
+                user.getEmail(),
+                user.getFullName(),
+                EmailTemplateName.ACTIVATE_ACCOUNT,
+                activationUrl,
+                newToken,
+                "Account activation"
+        );
 
 
     }
