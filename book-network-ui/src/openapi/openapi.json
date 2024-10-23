@@ -1,12 +1,11 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.2",
   "info": {
     "title": "OpenApi specification - Ridhan",
     "description": "OpenApi documentation for Spring Security",
     "termsOfService": "Terms of service",
     "contact": {
       "name": "Ridhan",
-      "url": "https://ridhan.com/book",
       "email": "ridhanparvendhan@gmail.com"
     },
     "license": {
@@ -19,10 +18,6 @@
     {
       "url": "http://localhost:8088/api/v1",
       "description": "Local ENV"
-    },
-    {
-      "url": "https://ridhan.com/book",
-      "description": "PROD ENV"
     }
   ],
   "security": [
@@ -926,7 +921,6 @@
       "bearerAuth": {
         "type": "http",
         "description": "JWT auth description",
-        "in": "header",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }

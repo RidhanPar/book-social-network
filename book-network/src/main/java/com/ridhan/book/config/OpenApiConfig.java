@@ -31,10 +31,6 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 @Server(
                         description = "Local ENV",
                         url = "http://localhost:8088/api/v1"
-                ),
-                @Server(
-                        description = "PROD ENV",
-                        url = "https://ridhan.com/book"
                 )
         },
         security = {
