@@ -3,6 +3,7 @@ package com.ridhan.book.auth;
 import com.ridhan.book.email.EmailService;
 import com.ridhan.book.email.EmailTemplateName;
 import com.ridhan.book.role.RoleRepository;
+import com.ridhan.book.security.JwtService;
 import com.ridhan.book.user.Token;
 import com.ridhan.book.user.TokenRepository;
 import com.ridhan.book.user.User;
@@ -10,11 +11,17 @@ import com.ridhan.book.user.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
