@@ -15,7 +15,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
     host: localhost
-    ports: 1025
+    port: 1025
     username: ridhan
     password: ridhan
     properties:
@@ -24,19 +24,18 @@ spring:
           trust: "*"
         auth: true
         starttls:
-          enable: true
-          connectiontimeout: 5000
-          tmieout: 3000
-          wrtietimeout: 5000
-
-application:
+          enabled: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
   security:
-    jwt:
-      secret-key: 8e0097cfe6080af01a1ab5c2b769e7ee816a41e891fa09648690e62067a3b083f6385e03780f4d03197ea0682cdf3a1dd2a56dcd90092af0a704a19803400a8f4eeb04c558ae040a0a48eba226e48d1742aa90425e8f3d92b1df3d3eeff0f6b488d4798401c4b0f693f4ba4f001c5de659963468ce5a1bd45356d18a3e882c44
-      expiration: 8640000
-  mailing:
-    frontend:
-      activation-url: http://localhost:4200/activate-account
-
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9090/realms/book-social-network"
+application:
+  file:
+    uploads:
+      photos-output-path: ./uploads
 server:
   port: 8088
